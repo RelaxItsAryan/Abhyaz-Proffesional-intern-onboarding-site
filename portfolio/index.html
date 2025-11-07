@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhyaz - Professional Intern Onboarding Platform</title>
+    <meta name="description" content="Comprehensive onboarding courses for interns with integrated Zoho CRM, Survey, and WorkDrive for seamless professional development and feedback collection.">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4A90E2;
+            --primary-dark: #357ABD;
+            --accent: #27AE60;
+            --accent-dark: #1E8449;
+            --background: #FFFFFF;
+            --foreground: #2C3E50;
+            --muted: #95A5A6;
+            --border: #E8ECF1;
+            --card-bg: #FFFFFF;
+            --shadow: 0 4px 20px rgba(74, 144, 226, 0.1);
+            --shadow-hover: 0 10px 40px rgba(74, 144, 226, 0.15);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            color: var(--foreground);
+            background: var(--background);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #4A90E2 0%, #5B7FD8 100%);
+            overflow: hidden;
+            color: white;
+            text-align: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            filter: blur(80px);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -200px;
+            left: -200px;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            filter: blur(80px);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            padding: 80px 20px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero .accent-text {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            color: var(--foreground);
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Background Designs */
+        .bg-pattern {
+            background-color: #F8FAFB;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(74, 144, 226, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(39, 174, 96, 0.05) 0%, transparent 50%);
+        }
+
+        .bg-gradient {
+            background: linear-gradient(180deg, #F8FAFB 0%, #FFFFFF 100%);
+        }
+
+        /* Course Grid */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .course-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .course-card-header {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .course-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .icon-primary {
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--primary);
+        }
+
+        .icon-accent {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--accent);
+        }
+
+        .course-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: var(--foreground);
+        }
+
+        .course-card p {
+            color: var(--muted);
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--primary);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Integration Cards */
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .integration-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: var(--shadow);
+        }
+
+        .workflow-step {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .step-number {
+            min-width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .workflow-step p {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .workflow-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 24px 0 16px 0;
+            letter-spacing: 0.5px;
+        }
+
+        /* Form Styles */
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: var(--shadow-hover);
+        }
+
+        .info-box {
+            padding: 20px;
+            background: rgba(74, 144, 226, 0.1);
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 12px;
+            margin-bottom: 32px;
+        }
+
+        .info-box p {
+            font-size: 0.95rem;
+            color: var(--primary);
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--foreground);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-dark);
+        }
+
+        .form-note {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        /* Survey Section */
+        .survey-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            color: var(--muted);
+        }
+
+        .checklist li::before {
+            content: '✓';
+            color: var(--accent);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .workflow-complete {
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.05) 0%, rgba(39, 174, 96, 0.05) 100%);
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            padding: 40px;
+            border-radius: 16px;
+            margin-bottom: 32px;
+        }
+
+        .workflow-complete h3 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .workflow-step-card {
+            text-align: center;
+        }
+
+        .step-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 16px auto;
+        }
+
+        .step-circle.accent {
+            background: var(--accent);
+        }
+
+        .workflow-step-card h4 {
+            margin-bottom: 8px;
+            color: var(--foreground);
+        }
+
+        .workflow-step-card p {
+            font-size: 0.95rem;
+            color: var(--muted);
+        }
+
+        .cta-center {
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--foreground);
+            color: white;
+            padding: 32px 20px;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .form-card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🎓 Welcome to Professional Development</div>
+            <h1>Welcome to <span class="accent-text">Abhyaz</span></h1>
+            <p>Comprehensive onboarding courses designed to transform interns into confident, skilled professionals</p>
+            <div class="btn-group">
+                <a href="#signup" class="btn btn-primary">Get Started →</a>
+                <a href="#courses" class="btn btn-outline">Explore Courses</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="bg-pattern">
+        <div class="container">
+            <div class="section-header">
+                <h2>Onboarding Courses</h2>
+                <p>Structured learning paths designed to accelerate your professional growth</p>
+            </div>
+
+            <div class="course-grid">
+                <div class="course-card">
+                    <div class="course-card-header">
+                        <div class="course-icon icon-primary">📚</div>
+                        <div>
+                            <h3>Foundations of Professional Work</h3>
+                        </div>
+                    </div>
+                    <p>Learn workplace essentials, communication skills, and professional etiquette to excel from day one.</p>
+                    <span class="badge">2 weeks</span>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-card-header">
+                        <div class="course-icon icon-accent">👥</div>
+                        <div>
+                            <h3>Team Collaboration & Tools</h3>
+                        </div>
+                    </div>
+                    <p>Master Zoho ecosystem including CRM, WorkDrive, and Survey for seamless team collaboration.</p>
+                    <span class="badge">3 weeks</span>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-card-header">
+                        <div class="course-icon icon-primary">🎯</div>
+                        <div>
+                            <h3>Project Management Basics</h3>
+                        </div>
+                    </div>
+                    <p>Understand project workflows, task management, and delivery timelines for successful execution.</p>
+                    <span class="badge">2 weeks</span>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-card-header">
+                        <div class="course-icon icon-accent">💡</div>
+                        <div>
+                            <h3>UI/UX Design Principles</h3>
+                        </div>
+                    </div>
+                    <p>For design interns: Learn feedback collection, iteration cycles, and design validation using Zoho Survey.</p>
+                    <span class="badge">4 weeks</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Zoho Integration Section -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <h2>Zoho Ecosystem Integration</h2>
+                <p>Seamlessly connected tools for efficient onboarding and feedback management</p>
+            </div>
+
+            <div class="integration-grid">
+                <div class="integration-card">
+                    <div class="course-card-header">
+                        <div class="course-icon icon-primary">🗄️</div>
+                        <div>
+                            <h3>Zoho CRM Integration</h3>
+                        </div>
+                    </div>
+                    <p>Webforms embedded below capture intern signups automatically. Data flows directly into Zoho CRM as leads, enabling immediate tracking and follow-up.</p>
+                    
+                    <div class="workflow-title">WORKFLOW:</div>
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <p>Intern fills out signup form</p>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <p>Data submits to Zoho CRM webform</p>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <p>Lead created automatically in CRM</p>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">4</div>
+                        <p>Notifications sent to admin team</p>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">5</div>
+                        <p>Lead enters onboarding pipeline</p>
+                    </div>
+                </div>
+
+                <div class="integration-card">
+                    <div class="course-card-header">
+                        <div class="course-icon icon-accent">💬</div>
+                        <div>
+                            <h3>Zoho Survey for Feedback</h3>
+                        </div>
+                    </div>
+                    <p>Collect structured feedback after onboarding sessions. Surveys measure satisfaction, identify improvement areas, and track intern progress.</p>
+                    
+                    <div class="workflow-title">WORKFLOW:</div>
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <p>Survey sent after each training module</p>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <p>Interns provide anonymous feedback</p>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <p>Responses collected in Zoho Survey</p>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">4</div>
+                        <p>Data analyzed for insights</p>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">5</div>
+                        <p>Action items created for improvements</p>
+                    </div>
+                </div>
+
+                <div class="integration-card">
+                    <div class="course-card-header">
+                        <div class="course-icon icon-primary">📄</div>
+                        <div>
+                            <h3>UI/UX Feedback Collection</h3>
+                        </div>
+                    </div>
+                    <p>Design interns use Zoho Survey to gather user feedback on prototypes and designs, storing results in Zoho WorkDrive for team collaboration.</p>
+                    
+                    <div class="workflow-title">WORKFLOW:</div>
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <p>Designer creates prototype/mockup</p>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <p>Survey shared with target users</p>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <p>Feedback collected via Zoho Survey</p>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">4</div>
+                        <p>Results exported to Zoho WorkDrive</p>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">5</div>
+                        <p>Team collaborates on design iterations</p>
+                    </div>
+                </div>
+
+                <div class="integration-card">
+                    <div class="course-card-header">
+                        <div class="course-icon icon-accent">📈</div>
+                        <div>
+                            <h3>Analytics & Reporting</h3>
+                        </div>
+                    </div>
+                    <p>Track intern performance, survey responses, and engagement metrics through Zoho's integrated analytics dashboard.</p>
+                    
+                    <div class="workflow-title">WORKFLOW:</div>
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <p>Continuous data collection across tools</p>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <p>Automated report generation</p>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <p>Dashboard visualization of KPIs</p>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">4</div>
+                        <p>Trend analysis and insights</p>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">5</div>
+                        <p>Strategic decision-making support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Signup Form Section -->
+    <section id="signup" class="bg-gradient">
+        <div class="container form-container">
+            <div class="section-header">
+                <h2>Join the Program</h2>
+                <p>Sign up to begin your onboarding journey. Your information will be sent to Zoho CRM.</p>
+            </div>
+
+            <div class="form-card">
+                <div class="info-box">
+                    <p><strong>🔗 Zoho CRM Integration:</strong> This form connects to a Zoho CRM webform. When submitted, data automatically creates a lead in your CRM pipeline with tags for "Intern Onboarding".</p>
+                </div>
+
+                <form id="signupForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="interest">Areas of Interest</label>
+                        <textarea id="interest" name="interest" placeholder="Which courses are you most interested in? Any specific goals?"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Submit to Zoho CRM →</button>
+
+                    <p class="form-note">Your data will be securely stored in Zoho CRM and used only for onboarding purposes.</p>
+                </form>
+            </div>
+
+            <div class="integration-card" style="margin-top: 32px; background: rgba(39, 174, 96, 0.1); border-color: rgba(39, 174, 96, 0.2);">
+                <h3 style="margin-bottom: 16px;">How the Integration Works:</h3>
+                <ol style="padding-left: 20px; color: var(--muted);">
+                    <li style="margin-bottom: 8px;">Form submission triggers Zoho CRM webform endpoint</li>
+                    <li style="margin-bottom: 8px;">Data automatically maps to CRM lead fields (Name, Email, Phone, Notes)</li>
+                    <li style="margin-bottom: 8px;">Lead tagged with "Intern" and "Onboarding" labels</li>
+                    <li style="margin-bottom: 8px;">Workflow automation assigns lead to HR team</li>
+                    <li style="margin-bottom: 8px;">Email notification sent to admin and welcome email to intern</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- Survey Integration Section -->
+    <section class="bg-pattern">
+        <div class="container">
+            <div class="section-header">
+                <h2>Feedback Collection with Zoho Survey</h2>
+                <p>Continuous improvement through structured feedback mechanisms</p>
+            </div>
+
+            <div class="survey-grid">
+                <div class="integration-card">
+                    <h3>Post-Onboarding Feedback</h3>
+                    <p style="margin-bottom: 24px;">After each training module, interns receive a Zoho Survey link to evaluate:</p>
+                    <ul class="checklist">
+                        <li>Content quality and relevance</li>
+                        <li>Trainer effectiveness</li>
+                        <li>Learning resources adequacy</li>
+                        <li>Practical applicability</li>
+                        <li>Suggestions for improvement</li>
+                    </ul>
+                </div>
+
+                <div class="integration-card">
+                    <h3>UI/UX Design Feedback</h3>
+                    <p style="margin-bottom: 24px;">Design interns use Zoho Survey to validate design decisions:</p>
+                    <ul class="checklist">
+                        <li>User testing questionnaires</li>
+                        <li>A/B testing preference surveys</li>
+                        <li>Usability scoring metrics</li>
+                        <li>Feature priority feedback</li>
+                        <li>Visual design appeal ratings</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="workflow-complete">
+                <h3>Complete Feedback Workflow</h3>
+                
+                <div class="workflow-steps">
+                    <div class="workflow-step-card">
+                        <div class="step-circle">1</div>
+                        <h4>Create Survey</h4>
+                        <p>Design feedback form in Zoho Survey with rating scales, multiple choice, and open-ended questions</p>
+                    </div>
+
+                    <div class="workflow-step-card">
+                        <div class="step-circle">2</div>
+                        <h4>Distribute & Collect</h4>
+                        <p>Share survey links via email or embed on training platform. Responses auto-collected in real-time</p>
+                    </div>
+
+                    <div class="workflow-step-card">
+                        <div class="step-circle accent">3</div>
+                        <h4>Analyze & Act</h4>
+                        <p>Export to Zoho WorkDrive, analyze trends, create action items, and iterate on improvements</p>
+                    </div>
+                </div>
+
+                <div class="cta-center">
+                    <a href="#" class="btn btn-primary">View Sample Survey →</a>
+                    <p style="margin-top: 16px; color: var(--muted);">Click to see an example Zoho Survey for intern onboarding feedback</p>
+                </div>
+            </div>
+
+            <div class="integration-card">
+                <h3 style="margin-bottom: 16px;">Integration with Zoho WorkDrive:</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                    <div>
+                        <p style="margin-bottom: 8px;"><strong>Automated Exports:</strong> Survey results automatically sync to designated WorkDrive folders</p>
+                    </div>
+                    <div>
+                        <p style="margin-bottom: 8px;"><strong>Team Collaboration:</strong> Stakeholders access shared folders to review feedback collectively</p>
+                    </div>
+                    <div>
+                        <p style="margin-bottom: 8px;"><strong>Version Control:</strong> Track feedback evolution across multiple survey iterations</p>
+                    </div>
+                    <div>
+                        <p style="margin-bottom: 8px;"><strong>Reporting:</strong> Generate PDF reports with charts and insights for leadership review</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2024 Abhyaz Intern Onboarding Platform. Powered by Zoho Ecosystem.</p>
+        </div>
+    </footer>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            // Here you would integrate with your Zoho CRM webform
+            // For demonstration, we'll just show an alert
+            alert('Registration Successful!\n\nYour information has been submitted to Zoho CRM. Our team will contact you shortly.\n\nName: ' + data.name + '\nEmail: ' + data.email);
+            
+            // Reset form
+            event.target.reset();
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
